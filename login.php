@@ -1,3 +1,6 @@
+<?php
+include 'datafile.php';
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -36,7 +39,7 @@
                   </div>
                   <div class="card-body">
                       <label for="">User Name</label>
-                        <input type="text" name="fname" class="form-control" placeholder="First Name">
+                        <input type="text" name="username" class="form-control" placeholder="User Name">
 
                         <label for="" class="mt-2">Password(You should use more than 8 digits in length and contain both letters and numbers)</label>
                         <input type="password" name="password" class="form-control" placeholder="Password">

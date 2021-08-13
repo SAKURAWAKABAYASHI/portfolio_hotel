@@ -20,6 +20,8 @@ if(isset($_POST["register"])){
 }elseif(isset($_POST["login"])){
     $username = $_POST["username"];
     $password = $_POST["password"];
+
+    $resObj->login($username,$password);
 }
 
 

@@ -31,10 +31,19 @@ class Res extends Config{
                  WHERE accounts.username = '$username' AND accounts.password = '$password'";
         $result = $this->conn->query($sql);
 
-        if($result->num_rows == 1)[
-            $rows = $result->fetch_assoc();
+        if($result->num_rows == 1){
+            $row = $result->fetch_assoc();
+            $_SESSION["account_id"] = $row["user_id"];
+            $_SESSION["firsr_name"] = $row["fname"];
+            $_SESSION["last_name"] = $row["lname"];
+            if($row["status"] == "U"){
+                header('location:user_dashboard.php');
+            }else{
+                header('location:admin_dashboard.php');
+            }
+                
             
-        ]
+        }
     }
 }
 ?>
