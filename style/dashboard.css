@@ -1,0 +1,86 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.nav{
+    border: 3px solid black;
+    width: 20%;
+    height: 577px;
+    position: fixed;
+    float: left;
+    margin-right: 1.25%; 
+}
+.nav ul{
+    list-style-type: none;
+    border: 2px dashed blue;
+   
+}
+
+.nav ul li a{
+    text-decoration: none;
+    color: black;
+}
+.home_menu{
+    border: 3px solid blue;
+    width: 75%;
+    height: 577px;
+    float: right;
+    margin-right: 1.25%; 
+}
+.reser{
+    border: 2px dashed black;
+    width: 65%;
+    height: 230px;
+    
+    background-image: url(../images/home_reservation.jpg-1.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+   float: left;
+}
+.reser .overlay a{
+    color: white;
+}
+.reser .overlay:hover{
+    background-color: rgba(255, 255, 255, .5);
+    opacity: 1;
+}
+.foods{
+    border: 2px dashed yellow; 
+    width: 34%;
+    height: 330px;
+    background-image: url(../images/home_food.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    float: right;
+    margin-bottom: 10px;
+}
+
+.goods{
+    border: 2px dashed black;
+    width: 65%;
+    height: 230px;
+     background-image: url(../images/home_hotspot_1.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    float: right;
+}
+.goods .overlay:hover{
+    background-color: rgba(255, 255, 255, .5);
+    opacity: 1;
+}
+.hot{
+    border: 2px dashed yellow; 
+    width: 34%;
+    height: 330px;
+    background-image: url(../images/home_goods.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    float: left;
+    margin-top: 10px;
+}

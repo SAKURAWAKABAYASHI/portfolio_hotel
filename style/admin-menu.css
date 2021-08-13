@@ -1,0 +1,19 @@
+.nav{
+    border: 3px solid red;
+    width: 22.5%;
+    height: 577px;
+    position: fixed;
+    float: left;
+    margin-right: 1.25%;
+    
+}
+.nav ul{
+    list-style-type: none;
+    border: 2px dashed blue;
+   
+}
+
+.nav ul li a{
+    text-decoration: none;
+    color: black;
+}
