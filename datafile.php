@@ -22,7 +22,22 @@ if(isset($_POST["register"])){
     $password = $_POST["password"];
 
     $resObj->login($username,$password);
+}elseif(isset($_POST["calculation"])){ 
+    $rooms = $_POST["rooms"];
+    $num_rooms = $_POST["num_rooms"];
+    $check_in = $_POST["check_in"];
+    $check_out = $_POST["check_out"];
+   
+    $resObj->setTotalprice($rooms,$num_rooms,$check_in,$check_out);
+}elseif(isset($_POST["reserve"])){
+    $num_people = $_POST["people"];
+    $num_rooms = $_POST["num_rooms"];
+    $rooms = $_POST["rooms"];
+    $check_in = $_POST["check_in"];
+    $check_out = $_POST["check_out"];
+    $total_price = number_format($resObj->calculateTotalPrice($rooms,$num_rooms,$check_in,$check_out),2); 
+    
+    $resObj->reservation($num_people,$num_rooms,$rooms,$check_in,$check_out,$total_price);
 }
-
 
 ?>
