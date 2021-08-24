@@ -18,8 +18,9 @@ include 'datafile.php';
     <!-- <span>Welcome Sakura Wakabayashi</span>  -->
       <ul>
         <li><a href="#">Home</a></li>
-        <li><a href="reservation.php">Reservation</a></li>
-        <li><a href="goods.php">Goods</a></li>
+        <li><a href="admin_account.php">Admin</a></li>
+        <li><a href="admin_reservation.php">Check Reservation</a></li>
+        <li><a href="admin_goods.php">Check Goods</a></li>
         <li><a href="#">FAQ</a></li>
         <li><a href="">access/inquiries</a></li>
       </ul>

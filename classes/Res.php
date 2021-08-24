@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'classes/config.php';
 
 class Res extends Config{
@@ -32,11 +33,12 @@ class Res extends Config{
 
         if($result->num_rows == 1){
             $row = $result->fetch_assoc();
-            $_SESSION["account_id"] = $row["user_id"];
-            $_SESSION["firsr_name"] = $row["fname"];
+            $_SESSION["user_id"] = $row["user_id"];
+            $_SESSION["first_name"] = $row["fname"];
             $_SESSION["last_name"] = $row["lname"];
             if($row["status"] == "U"){
                 header('location:user_dashboard.php');
+                
             }else{
                 header('location:admin_dashboard.php');
             }
@@ -52,6 +54,14 @@ class Res extends Config{
         $this->check_in = $check_in;
         $this->check_out = $check_out;
     }
+
+    public function roomPrice($room_id)
+    {
+        $sql = "SELECT room_price FROM rooms where room_id = '$room_id'";
+        $result = $this->conn->query($sql);
+        return $result->fetch_assoc();
+    }
+
     public function roomType(){
         if($this->rooms_type == 'room_1'){
             return 100;
@@ -64,21 +74,206 @@ class Res extends Config{
     public function allRoomType(){
         $sql = "SELECT * FROM rooms";
         $result = $this->conn->query($sql);
-        return $result->fetch_assoc();
-        // var_dump($result->fetch_assoc());
-    }
-    public function calculateTotalPrice($rooms,$check_in,$check_out){
-        $nights = $this->check_out - $this->check_in;
-        return $this->roomType() * $this->nights;
+        while($row = $result->fetch_assoc())
+        {   
+            echo "<option value='".$row["room_id"]."' price='".$row["room_price"]."'>".$row["room_name"]."</option>";
+        }
+
+       
     }
 
-    public function reservation($num_people,$rooms,$check_in,$check_out,$total_price){
-        $sql = "INSERT INTO reservation(room_id,check_in,check_out,total_price) VALUES('$rooms','$check_in','$check_out','$total_price')";
+    public function roomInfo(){
+        $sql = "SELECT * FROM rooms";
+        $result = $this->conn->query($sql);
+
+        $rows = array();
+
+        if($result->num_rows >= 1){
+            while($room_details = $result->fetch_assoc()){
+                $rows[] = $room_details;
+            }      
+                return $rows;
+            
+            }else{
+                 return false;
+            }
+        }
+
+        public function roomStock($room_id,$room_stock,$num_rooms){
+           
+            $sql = "UPDATE rooms SET room_stock = '$room_stock'-'$num_rooms' WHERE room_id = '$room_id'";
+            
+            if($this->conn->query($sql)){
+                
+            }else{
+                die('ERROR: '.$this->conn->error); 
+            }
+
+        }
+
+    public function reservation($user_id,$total_price,$num_people,$num_rooms,$room_type,$check_in,$check_out){
+        $check_in_date = new DateTime($check_in);
+        $check_out_date = new DateTime($check_out);
+        $datediff = date_diff($check_in_date,$check_out_date);
+
+        if($check_in !== $check_out){
+            $room_stock = "SELECT room_stock FROM rooms WHERE room_id = '$room_type'";
+            $result_room_stock = $this->conn->query($room_stock);
+
+            if($result_room_stock->fetch_assoc()){
+                $sql = "INSERT INTO reservation(user_id,total_price,number_people,number_rooms,room_id,check_in,check_out,nights) 
+                    VALUES('$user_id','$total_price','$num_people','$num_rooms','$room_type','$check_in','$check_out',' $datediff->days')";
+                $result = $this->conn->query($sql);
+                $reservation_id = $this->conn->insert_id;
+            
+                    if($result ==TRUE){
+                        header("location:check_reservation.php?reservation_id=".$reservation_id);
+                    }else{
+                        die("error:".$this->conn->error);
+                    }
+            }
+            
+        }else{
+            die('Check-in and check-out cannot be on the same day'.$this->conn->error);
+        }
+        
     }
-    // public function resRoom1($username,$password,$check_in_1,$check_out_1){
-    //     $sql = "INSERT INTO resrervation(check_in,check_out) VALUES('$check_in_1','$check_out_1') ";
-    //     $result = 
-    // }
+    
+    public function checkReservation($reservation_id){
+        $sql = "SELECT reservation_id,users.user_id,rooms.room_id,first_name,last_name,room_name,room_price,room_capacity,number_rooms,check_in,check_out,number_people,total_price FROM reservation 
+                INNER JOIN users ON reservation.user_id = users.user_id 
+                INNER JOIN rooms ON reservation.room_id = rooms.room_id WHERE reservation.reservation_id = '$reservation_id'";
+        
+        $result = $this->conn->query($sql);
+        
+        if($result->num_rows >= 1){
+                return  $result->fetch_assoc();
+                
+        }else{
+            return false;
+        }
+    }
+
+    public function reservationHistory($user_id){
+        $sql = "SELECT * FROM reservation 
+                INNER JOIN rooms ON reservation.room_id = rooms.room_id
+                WHERE reservation.user_id = '$user_id'";
+        $result = $this->conn->query($sql);
+
+        if($result->num_rows >= 1){
+            $row = [];
+            while($res_history = $result->fetch_assoc()){
+                array_push($row,$res_history);
+            } 
+            return $row;
+            // if($check_out > $time = new DateTime()){
+
+            // }
+        }else{
+            return false;
+        }
+    }
+
+    public function cancelReservation($reservation_id){
+        $sql = "UPDATE reservation SET reservation_status = 'cancel' WHERE reservation_id = '$reservation_id'";
+        
+        if($this->conn->query($sql)){
+            header("location:user_account.php");
+        }else{
+            die("Failed to delete your reservation");
+        }
+    }
+    
+
+    public function userInformation($user_id){
+        $sql = "SELECT * FROM accounts INNER JOIN users ON accounts.account_id = users.account_id WHERE user_id = '$user_id'";
+        $result = $this->conn->query($sql);
+        if($result->num_rows == 1){
+           return  $result->fetch_assoc();
+        }else{
+            return false;
+        }
+    }
+
+    public function reserveAgain($room_id){
+        $sql = "SELECT * FROM rooms WHERE room_id = '$room_id'";
+        $result = $this->conn->query($sql);
+
+        if($result->num_rows == 1){
+            return $result->fetch_assoc();
+        }else{
+            return false;
+        }
+    }
+
+    public function updateUserInfo($account_id,$user_id,$new_first_name,$new_last_name,$new_address,$new_contact_number,$new_email,$new_username,$new_password){
+        $sql = "UPDATE accounts 
+                SET username = '$new_username',
+                    password = '$new_password'
+                WHERE account_id = '$account_id'";
+        $result = $this->conn->query($sql);
+
+        if($result == TRUE){
+            $sql_users = "UPDATE users
+                        SET first_name = '$new_first_name',
+                            last_name = '$new_last_name',
+                            address = '$new_address',
+                            contact_number = '$new_contact_number',
+                            email = '$new_email'
+                        WHERE user_id = '$user_id'";
+            
+            if($this->conn->query($sql_users)){
+                header('location:user_account.php');
+            }else{
+                die('Failed to update users table'.$this->conn->error); 
+            }
+        }else{
+            die('Failed to update accounts table'.$this->conn->error);
+        }
+    }
+
+    public function Logout($user_id){
+        $sql = "DELETE FROM users INNER JOIN accounts ON users.account_id=accounts.account_id
+                 WHERE user_id = '$user_id'";
+        
+        if($this->conn->query($sql)){
+            header('location:toppage.php');
+        }else{
+            die('You cannot logout your account.');
+        }
+    }
+
+    public function reservationStatus($reservation_id){
+        $sql = "SELECT * FROM reservation INNER JOIN rooms ON reservation.room_id = rooms.room_id
+                WHERE reservation.reservation_id = '$reservation_id'";
+        $result = $this->conn->query($sql);
+        
+        if($result->num_rows >= 1){
+            $row = [];
+            while($res_status = $result->fetch_assoc()){
+                array_push($row,$res_status);
+            } 
+            return $row;
+        }else{
+            return false;
+        }
+    }
+
+    public function userStatus(){
+        $sql = "SELECT * FROM users INNER JOIN accounts ON users.account_id = accounts.account_id ";
+        $result = $this->conn->query($sql);
+
+        if($result->num_rows >= 1){
+            $row = [];
+            while($user_status = $result->fetch_assoc()){
+                array_push($row,$user_status);
+            } 
+            return $row;
+        }else{
+            return false;
+        }
+    }
+    
 }
 
 ?>

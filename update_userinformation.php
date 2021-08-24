@@ -1,5 +1,7 @@
 <?php
 include 'datafile.php';
+$user_id = $_SESSION["user_id"];
+$user_info = $resObj->userInformation($user_id);
 ?>
 <!doctype html>
 <html lang="en">
@@ -15,66 +17,58 @@ include 'datafile.php';
   </head>
   <body>
     <div class="row">
-      <div class="nav col-3">
-        <!-- <span>Welcome Sakura Wakabayashi</span>  -->
-          <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="reservation.php">Reservation</a></li>
-            <li><a href="goods.php">Goods</a></li>
-            <li><a href="#">FAQ</a></li>
-            <li><a href="">access/inquiries</a></li>
-          </ul>
-      </div> 
-      <div class="container col-7">
+      <div class="container col-10">
             <form action="" method="post">
-              <h1 class="text-center">Register</h1>
+              <h1 class="text-center">UPDATE ACCOUNT SETTING</h1>
               <div class="row mb-2">
                 <div class="col-md-6">
+                    <input type="hidden" name="account_id" value="<?php echo $user_info["account_id"]  ?>">
+                    <input type="hidden" name="user_id" value="<?php echo $user_info["user_id"] ?>">
                   <label for="">First Name</label>
-                  <input type="text" name="fname" placeholder="First Name" class="form-control">
-                </div>
+                  <input type="text" name="new_fname" value="<?php echo $user_info["first_name"]  ?>" placeholder="First Name" class="form-control"> 
+               </div>
                 <div class="col-md-6">
                   <label for="">Last Name</label>
-                  <input type="text" name="lname" placeholder="Last Name" class="form-control">
+                  <input type="text" name="new_lname" value="<?php echo $user_info["last_name"]  ?>" placeholder="Last Name" class="form-control">
                 </div>
               </div>
               <div class="row mb-2">
                 <div class="col-md-12">
                   <label for="">Address</label>
-                  <input type="address" name="address" placeholder="Address" class="form-control">
+                  <input type="address" name="new_address" value="<?php echo $user_info["address"]  ?>" placeholder="Address" class="form-control">
                 </div>
               </div>
               <div class="row mb-2">
                 <div class="col-md-12">
                   <label for="">Contact Number</label>
-                  <input type="number" name="contact_number" placeholder="Contact Number" class="form-control">
+                  <input type="number" name="new_contact_number" value="<?php echo $user_info["contact_number"]  ?>" placeholder="Contact Number" class="form-control">
                 </div>
               </div>
               <div class="row mb-2">
                 <div class="col-md-12">
                   <label for="">E-Mail</label>
-                  <input type="email" name="email" placeholder="E-Mail" class="form-control">
+                  <input type="email" name="new_email" value="<?php echo $user_info["email"]  ?>" placeholder="E-Mail" class="form-control">
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-12">
                   <label for="">User Name</label>
-                  <input type="text" name="username" placeholder="User Name" class="form-control">
+                  <input type="text" name="new_username" value="<?php echo $user_info["username"]  ?>" placeholder="User Name" class="form-control">
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-6">
                   <label for="">Password</label>
-                  <input type="password" name="password" placeholder="Password" class="form-control">
+                  <input type="password" name="new_password" value="<?php echo $user_info["password"]  ?>" placeholder="Password" class="form-control">
                 </div>
                 <div class="col-md-6">
                   <label for="">Confirm Password</label>
-                  <input type="password" name="con_password" placeholder="Confirm Password" class="form-control">
+                  <input type="password" name="new_con_password" value="<?php echo $user_info["password"]  ?>" placeholder="Confirm Password" class="form-control">
                 </div>
               </div>
               <div class="row mb-2">
                 <div class="col-md-12">
-                  <input type="submit" value="Register" name="register" class="btn btn-primary form-control mt-3" >
+                  <input type="submit" value="UPDATE" name="update_userinfo" class="btn btn-warning form-control mt-3" >
                 </div>
               </div>   
             </form>

@@ -1,6 +1,7 @@
 <?php
 include 'datafile.php';
-$user_id = $_SESSION["user_id"];
+$room_id = $_GET["room_id"];
+$room_details = $resObj->reserveAgain($room_id);
 ?>
 <!doctype html>
 <html lang="en">
@@ -17,7 +18,7 @@ $user_id = $_SESSION["user_id"];
   <body>
       <div class="container">
           <form action="datafile.php" method="POST">
-            <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
+            <input type="hidden" name="user_id" value="<?php echo $room_id; ?>">
             <label for="">Number of people</label>
             <input type="number" name="people" class="form-control" required>
             
@@ -26,16 +27,13 @@ $user_id = $_SESSION["user_id"];
 
             <label for="">Room Type</label>
             <select name="room_type" id="rooms" class="form-control" required>
-                <option hidden selected>Select Room Type</option>
-              <?php
-              $resObj->allRoomType();
-              ?>
+                <?php echo "<option vlaue='".$room_details["room_id"]."' price='".$room_details["room_price"]."'>".$room_details["room_name"]."</option>" ?>
             </select>
 
             <label for="">Check in date</label>
-            <input type="date" name="check_in" id="check_in" class="form-control" min="<?php $time = new DateTime(); echo $time->format('Y-m-d'); ?>" required>
+            <input type="date" name="check_in" id="check_in" class="form-control" resuired>
             <label for="">Check out date</label>
-            <input type="date" name="check_out" id="check_out" class="form-control" min="<?php $time = new DateTime(); echo $time->format('Y-m-d'); ?>" required>
+            <input type="date" name="check_out" id="check_out" class="form-control" required>
 
             <input type="number" hidden name="total_price" id="total_price">
             <div class="form-check">
@@ -48,8 +46,6 @@ $user_id = $_SESSION["user_id"];
                   <p class="text-muted fst-italic fw-light" id="calc"></p>
                 </div>
             </div>
-            <input type="hidden" name="room_id" value="">
-            <input type="hidden" name="room_stock" value=""> 
             <input type="submit" name="reserve" value="RESERVE" class="btn btn-primary"> 
           </form>
       </div>

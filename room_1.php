@@ -1,3 +1,7 @@
+<?php
+include 'datafile.php';
+$room_id =1;
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -12,7 +16,8 @@
   </head>
   <body>
 <div class="container">
-    <form action="datafile.php">  
+    <form action="datafile.php" method="POST"> 
+      <input type="hidden" name="room_id" value="<?php echo $room_id; ?>"> 
         <div class="row">
             <div class="col-md-3">
 
@@ -45,6 +50,9 @@
                     <li>Cafe/Lounge</li>
                     <li>Pool</li>
                 </ul>
+
+                <h5>Stock of rooms</h5>
+                <p></p>
                 <a href="reservation_form.php">Go to reservation form</a>
             </div>
         </div>
