@@ -62,5 +62,29 @@ if(isset($_POST["register"])){
     $room_1 = $_POST["room_1"];
     
 }
+error_reporting(E_ALL);
+    ini_set('display_errors',1);
+
+    if(isset($_POST["upload"])){
+        $pic = $_FILES["photo"]["name"];
+        
+        $name = $_POST["photo_name"];
+
+        $target_dir = "upload/"; //folder in your computer where you will place the picture
+        $target_file = $target_dir . basename($_FILES["photo"]["name"]);
+
+        $ans = $resObj->insertToTable($name, $pic);
+
+        if($ans == 1){
+            // Upload file
+            move_uploaded_file($_FILES["photo"]["tmp_name"],$target_file);
+            //move_uploaded_file ~~~ transfers the picture from one location
+            // to another location
+            header("Location: index.html");
+        }else{
+            echo "Error";
+        }
+        
+    }
 
 ?>

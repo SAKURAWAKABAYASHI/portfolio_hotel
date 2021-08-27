@@ -1,6 +1,10 @@
 <?php
 include 'datafile.php';
-$room_id =1;
+$room_id =$_GET["room_id"];
+$room_info = $resObj->getRoomsInfo($room_id);
+// var_dump($resObj->getRoomsInfo($room_id));
+$occupied_rooms = $resObj->getNumberoccupiedRooms($room_id);
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -24,23 +28,23 @@ $room_id =1;
               </div>
               <div class="col-md-9">
                 <img src="images/room1.png" alt="room1">
-                <h1> Fugi</h1>
-                <p>concept:...</p>
+                <h1><?php echo $room_info["room_name"];  ?></h1>
+                <p><?php echo $room_info["discription"];  ?></p>
 
                 <h5>Total number of rooms</h5>
-                <p>30 rooms</p>
+                <p><?php echo $room_info["total_rooms"];  ?></p>
 
-                <h5>Parking</h5>
+                <!-- <h5>Parking</h5>
                 <p>free(outdoor)</p>
 
                 <h5>Transfer</h5>
-                <p>Shuttle bus from the south exit of Kyoto Station</p>
+                <p>Shuttle bus from the south exit of Kyoto Station</p> -->
 
                 <h5>Pet acceptance</h5>
                 <p>Yes(paid/limited)</p>
 
                 <h5>Room capacity</h5>
-                <p>2-4 people</p>
+                <p><?php echo $room_info["room_capacity"];  ?></p>
 
                 <h5>Main facilities</h5>
                 <ul>
@@ -51,9 +55,15 @@ $room_id =1;
                     <li>Pool</li>
                 </ul>
 
-                <h5>Stock of rooms</h5>
+                <h5>Available of rooms</h5>
+                <?php
+                  $available_rooms  = $room_info['total_rooms']-$occupied_rooms['occupied_rooms'];
+                  // var_dump($room_info["total_rooms"]);
+                  // var_dump($occupied_rooms);
+                 echo $available_rooms;
+                ?>
                 <p></p>
-                <a href="reservation_form.php">Go to reservation form</a>
+                <a href="reservation_form.php?room_id=<?php echo $room_info["room_id"]; ?>" class="btn btn-primary form-control">Go to reservation form</a>
             </div>
         </div>
     </form>

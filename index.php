@@ -17,32 +17,19 @@ include 'datafile.php';
     <div class="img">
         <div class="menu">
             <h1>Welcome to SAKURA HOTEL</h1>
-            <p>
-                <button class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#login" role="button" aria-expanded="false" aria-controls="login">Login</button>
-                <button class="btn btn-danger" type="button" data-bs-toggle="collapse" data-bs-target="#registration" aria-expanded="false" aria-controls="registration">Registration</button>
-            </p>
             <div class="container">
                 <div class="row">
-                    <div class="col">
-                        <div class="collapse" id="login">
-                            <div class="card">
-                                <div class="card-body">
-                                    <a href="login.php">Login</a>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="col-md-2"></div>
+                    <div class="col-md-4">
+                        <a href="login.php" class="text-decoration-none text-white text-center">LOGIN</a>
                     </div>
-                    <div class="col">
-                        <div class="collapse" id="registration">
-                            <div class="card">
-                                <div class="card-body">
-                                    <a href="register.php">Registration</a>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="col-md-4">
+                        <a href="register.php" class="text-decoration-none text-white">REGISTER</a>
                     </div>
+                    <div class="col-md-2"></div>
                 </div>
             </div>
+                
             
         </div>
 </div>

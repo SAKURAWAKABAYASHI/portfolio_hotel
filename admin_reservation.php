@@ -1,5 +1,7 @@
 <?php
-include 'datafile.php0;'
+include 'datafile.php';
+
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -21,27 +23,33 @@ include 'datafile.php0;'
                 <tr>
                     <th>Room ID</th>
                     <th>Room Name</th>
-                    <th>Stock</th>
+                    <th>Available Rooms</th>
                 </tr>
             </thead>
             <tbody>
               <?php
-                 $res_status= $resObj->reservationStatus($resrevation_id);
+                $room_info = $resObj->roomInfo();
+                // $res_status= $resObj->reservationStatus();
                  
-                 if($res_status == false){
+                 if($room_info == false){
               ?>
                   <tr>
                     <td colspan="2" class="text-center text-danger"></td>
                   </tr>
               <?php   
                  }else{
-                   foreach($res_status as $res){
+                   
+                   foreach($room_info as $room){
+                    $room_id = $room['room_id'];
+                    // $room_info = $resObj->getRoomsInfo($room_id);
+                    $occupied_rooms = $resObj->getNumberoccupiedRooms($room_id);
 
               ?>
                 <tr>
-                    <td><?php echo $res["room_id"]; ?></td>
-                    <td><?php echo $res["room_name"]; ?></td>
-                    <td><?php echo $res["room_stock"]; ?></td>
+                    <td><?php echo $room["room_id"]; ?></td>
+                    <td><a href="admin_reservation_status.php?room_id=<?php echo $room["room_id"];  ?>"><?php echo $room["room_name"]; ?></a></td>
+                    <td><?php echo $room['total_rooms']-$occupied_rooms['occupied_rooms']; ?></td>
+                    
                 </tr>
               <?php
                    }

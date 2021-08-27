@@ -20,17 +20,17 @@ include 'datafile.php';
   <div class="row">
 
   
-  <div class="nav col-3">
+  <!-- <div class="nav col-3"> -->
     <!-- <span>Welcome Sakura Wakabayashi</span>  -->
-      <ul>
+      <!-- <ul>
         <li><a href="#">Home</a></li>
         <li><a href="reservation.php">Reservation</a></li>
         <li><a href="goods.php">Goods</a></li>
         <li><a href="#">FAQ</a></li>
         <li><a href="">access/inquiries</a></li>
       </ul>
-  </div> 
-      <div class="container col-7">
+  </div>  -->
+      <div class="container col-6">
           <form action="datafile.php" method="post">
             <input type="hidden">
               <div class="card mt-5">

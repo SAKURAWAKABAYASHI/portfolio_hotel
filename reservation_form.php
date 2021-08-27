@@ -1,6 +1,7 @@
 <?php
 include 'datafile.php';
 $user_id = $_SESSION["user_id"];
+$room_id = $_GET["room_id"];
 ?>
 <!doctype html>
 <html lang="en">
@@ -18,8 +19,12 @@ $user_id = $_SESSION["user_id"];
       <div class="container">
           <form action="datafile.php" method="POST">
             <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
+            <input type="hidden" name="room_id" value="<?php echo $room_id; ?>">
+
             <label for="">Number of people</label>
-            <input type="number" name="people" class="form-control" required>
+           <input type="number" name="people" id="people" class="form-control" required>
+           <p id="maxPeople" class="text-muted fst-italic"></p>
+            
             
             <label for="">Number of Rooms</label>
             <input type="number" name="num_rooms" id="num_rooms" class="form-control" required>
@@ -64,6 +69,7 @@ $user_id = $_SESSION["user_id"];
       var checkout = 0;
       var days = 0;
       var numberOfRooms = 0;
+      var roomCapacity = 0;
       var optionSelected = "";
 
       $('select#rooms').on('change', function(e)
@@ -71,14 +77,17 @@ $user_id = $_SESSION["user_id"];
         optionSelected = $(this).find("option:selected");
         var valueSelected = optionSelected.val();
         price = optionSelected.attr('price');
-        console.log(price);
+        roomCapacity = optionSelected.attr('capacity');
+        // console.log(price);
+        maxPeople();
         totalPrice();
       });
       
       $('input#num_rooms').bind('click keyup', function()
       {
         numberOfRooms = $(this).val();
-        console.log(numberOfRooms);
+        // console.log(numberOfRooms);
+        maxPeople();
         totalPrice();
 
       });
@@ -86,16 +95,29 @@ $user_id = $_SESSION["user_id"];
       $('input#check_in').on('change', function(e)
       {
         checkin = $(this).val();
-        console.log(checkin);
+        // console.log(checkin);
+        maxPeople();
         totalPrice();
       });
       
       $('input#check_out').on('change', function(e){
         checkout = $(this).val();
-        console.log(checkout);
+        // console.log(checkout);
+        maxPeople();
         totalPrice();
       });
-
+      function maxPeople()
+      {
+        if(roomCapacity!==0 && numberOfRooms !==0)
+        {
+            var maxPeople = roomCapacity * numberOfRooms;
+            if(maxPeople > 0)
+            {
+            $("p#maxPeople").text("The maximum number of people is only " +maxPeople);
+            $("input#people").attr({max:maxPeople});
+            }
+        }
+      }
       function getDays()
       {
         var diffInMs = new Date(checkout) - new Date(checkin);

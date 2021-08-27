@@ -186,12 +186,20 @@ ul li:hover a span {
     width: 34%;
     height: 330px;
 }
-.home_menu .foods .overlay-2 h4 a{
+.home_menu .foods .overlay-2 h4{
     color: black;
-    text-decoration: none;
+    /* text-decoration: none; */
     display: inline-block;
     margin-top: 35%;
     margin-left: 45%;
+    top: 50%;
+    left: 50%;
+}.home_menu .foods .overlay-2 a{
+   text-decoration: none; 
+   display: inline-block;
+    margin-top: 2%;
+    margin-left: 45%;
+
 }
 .foods .overlay-2:hover{
     background-color: rgba(255, 255, 255, .5);
