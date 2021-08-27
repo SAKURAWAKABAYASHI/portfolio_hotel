@@ -15,16 +15,7 @@ include 'datafile.php';
   </head>
   <body>
     <div class="row">
-      <div class="nav col-3">
-        <!-- <span>Welcome Sakura Wakabayashi</span>  -->
-          <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="reservation.php">Reservation</a></li>
-            <li><a href="goods.php">Goods</a></li>
-            <li><a href="#">FAQ</a></li>
-            <li><a href="">access/inquiries</a></li>
-          </ul>
-      </div> 
+     
       <div class="container col-7">
             <form action="" method="post">
               <h1 class="text-center">Register</h1>

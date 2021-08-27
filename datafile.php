@@ -57,7 +57,7 @@ if(isset($_POST["register"])){
 
     $resObj->cancelReservation($reservation_id);
 }elseif(isset($_POST["logout"])){
-    // $user_id = $_POST[""]
+    $user_id = $_POST["user_id"];
 }elseif(isset($_POST["room1"])){
     $room_1 = $_POST["room_1"];
     
@@ -67,20 +67,20 @@ error_reporting(E_ALL);
 
     if(isset($_POST["upload"])){
         $pic = $_FILES["photo"]["name"];
-        
+        $pic_id = $_POST["pic_id"];
         $name = $_POST["photo_name"];
 
         $target_dir = "upload/"; //folder in your computer where you will place the picture
         $target_file = $target_dir . basename($_FILES["photo"]["name"]);
 
-        $ans = $resObj->insertToTable($name, $pic);
+        $ans = $resObj->updateToTable($name, $pic,$pic_id);
 
         if($ans == 1){
             // Upload file
             move_uploaded_file($_FILES["photo"]["tmp_name"],$target_file);
             //move_uploaded_file ~~~ transfers the picture from one location
             // to another location
-            header("Location: index.html");
+            header("Location: admin_dashboard.php");
         }else{
             echo "Error";
         }

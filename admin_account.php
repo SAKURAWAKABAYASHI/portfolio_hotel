@@ -11,10 +11,10 @@ include 'datafile.php';
 
     <!-- Bootstrap CSS v5.0.2 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"  integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="style/user_account.css">
+    <link rel="stylesheet" href="style/admin_account.css">
   </head>
   <body><div class="row">
-      <div class="col-md-2">
+      <div class="col-md-3">
   <nav>
       <ul>
         <li><a href="admin_dashboard.php"><i class="fas fa-home"></i><span>Home</span></a></li>
@@ -28,10 +28,10 @@ include 'datafile.php';
       <!-- <div class="container"> -->
           
               </div>
-             
+             <!-- <div class="col-md-2"></div> -->
               <div class="col-md-8">
 
-              
+             <h2 class="mt-3">USER INFORMATION</h2> 
           <table class="table">
             <thead class="table table-dark">
                 <tr>

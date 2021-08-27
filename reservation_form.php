@@ -17,19 +17,21 @@ $room_id = $_GET["room_id"];
   </head>
   <body>
       <div class="container">
+        <div class="table w-50 mx-auto mt-3">
+          <h2 class="text-center mx-auto">RESERVATION FORM</h2>
           <form action="datafile.php" method="POST">
             <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
             <input type="hidden" name="room_id" value="<?php echo $room_id; ?>">
 
-            <label for="">Number of people</label>
-           <input type="number" name="people" id="people" class="form-control" required>
+            <label for="" class="mt-2">Number of People</label>
+           <input type="number" name="people" id="people" class="form-control" placeholder="Number of People" required>
            <p id="maxPeople" class="text-muted fst-italic"></p>
             
             
-            <label for="">Number of Rooms</label>
-            <input type="number" name="num_rooms" id="num_rooms" class="form-control" required>
+            <label for="" class="">Number of Rooms</label>
+            <input type="number" name="num_rooms" id="num_rooms" class="form-control" placeholder="Number of Rooms" required>
 
-            <label for="">Room Type</label>
+            <label for="" class="mt-2">Room Type</label>
             <select name="room_type" id="rooms" class="form-control" required>
                 <option hidden selected>Select Room Type</option>
               <?php
@@ -37,15 +39,15 @@ $room_id = $_GET["room_id"];
               ?>
             </select>
 
-            <label for="">Check in date</label>
+            <label for="" class="mt-2">Check in date</label>
             <input type="date" name="check_in" id="check_in" class="form-control" min="<?php $time = new DateTime(); echo $time->format('Y-m-d'); ?>" required>
-            <label for="">Check out date</label>
+            <label for="" class="mt-2">Check out date</label>
             <input type="date" name="check_out" id="check_out" class="form-control" min="<?php $time = new DateTime(); echo $time->format('Y-m-d'); ?>" required>
 
             <input type="number" hidden name="total_price" id="total_price">
             <div class="form-check">
                 <input type="radio" name="agree" id="agree" required>
-                <label for="agree">I agree in the terms and conditions</label>
+                <label for="agree" class="mt-2">I agree in the terms and conditions</label>
             </div>
             <div id="total_price_display" class="text-end">
                 <div class="card-body">
@@ -55,8 +57,10 @@ $room_id = $_GET["room_id"];
             </div>
             <input type="hidden" name="room_id" value="">
             <input type="hidden" name="room_stock" value=""> 
-            <input type="submit" name="reserve" value="RESERVE" class="btn btn-primary"> 
+            <input type="submit" name="reserve" value="RESERVE" class="btn btn-primary mx-auto text-center mt-3"> 
           </form>
+      </div>
+      
       </div>
     <!-- Bootstrap JavaScript Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>

@@ -367,6 +367,10 @@ public function searchSpecificImage($pic_id){
     return $row;
 }
 
+public function getomePhoto(){
+
+}
+
 }
 
 

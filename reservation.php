@@ -36,7 +36,7 @@ include 'datafile.php';
 
           </div>
           <div class="img-1 col-md-5">
-              <img src="images/home_spa1.png" alt="img1">
+              <img src="images/home_spa_<?php echo $room["room_id"];?>.jpg" alt="img1" width="400px" height="150px">
           </div>
           <div class="col-md-4">
               <span><?php echo $room["discription"];  ?></span>

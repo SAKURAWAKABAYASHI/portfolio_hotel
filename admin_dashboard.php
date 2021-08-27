@@ -1,5 +1,6 @@
 <?php
 include 'datafile.php';
+$home_photo = $resObj->searchSpecificImage(3);
 ?>
 <!doctype html>
 <html lang="en">
@@ -27,18 +28,37 @@ include 'datafile.php';
       <div class="home_menu">
         <aside>
           <div class="reser">
+          <?php
+                $src = "upload/home_reservation.jpg-1.png";
+                if(!empty($home_photo["pic_image"])){
+                  $src = "upload/".$home_photo['pic_image'];
+                }
+
+            ?>
+                <img src="<?php echo $src;?>" alt="">
             <div class="overlay">
                  <h4>RESERVATION</h4>
-                <a href="admin_edit_resPhoto.php" class="btn btn-primary btn btn-primary text-center mx-auto">EDIT</a>
+                <a href="admin_edit_resPhoto.php?pic_id=3" class="btn btn-primary btn btn-primary text-center mx-auto">EDIT</a>
             </div>
           </div>
         </aside>
         <aside>
        <div class="foods">
-         <div class="overlay-2">
+       <?php
+              $home_photo = $resObj->searchSpecificImage(8);
+              $src = "upload/home_foods-1s.jpg";
+                if(!empty($home_photo["pic_image"])){
+                  $src = "upload/".$home_photo['pic_image'];
+                }
+
+      ?> 
+                <img src="<?php echo $src;?>" alt="">
+
+       <div class="overlay-2">
+          
           <h4>FOODS</h4> 
           <br>
-                <a href="edit_fods.php" class="btn btn-primary btn btn-primary text-center mx-auto">EDIT</a>
+                <a href="edit_fods.php?pic_id=8" class="btn btn-primary btn btn-primary text-center mx-auto">EDIT</a>
          </div>
                 
        </div>
@@ -46,19 +66,36 @@ include 'datafile.php';
       
      <aside>
        <div class="goods">
-          <div class="overlay-3">
+       <?php
+              $home_photo = $resObj->searchSpecificImage(7);
+              $src = "upload/home_foods-1s.jpg";
+                if(!empty($home_photo["pic_image"])){
+                  $src = "upload/".$home_photo['pic_image'];
+                }
+
+      ?> 
+                <img src="<?php echo $src;?>" alt="">
+       <div class="overlay-3">
            <h4>GOODS</h4> 
-            <a href=""  class="btn btn-primary btn btn-primary text-center mx-auto">EDIT</a>
+            <a href="edit_goods.php?pic_id=7"  class="btn btn-primary btn btn-primary text-center mx-auto">EDIT</a>
           </div>
         </div>
        
      </aside>   
       <aside>
         <div class="hot">
-          <div class="overlay-4">
-            
+        <?php
+              $home_photo = $resObj->searchSpecificImage(6);
+              $src = "upload/home_foods-1s.jpg";
+                if(!empty($home_photo["pic_image"])){
+                  $src = "upload/".$home_photo['pic_image'];
+                }
+
+      ?> 
+                <img src="<?php echo $src;?>" alt="">
+        <div class="overlay-4">
            <h4>HOT SPRING</h4>
-            <a href="" class="btn btn-primary btn btn-primary text-center mx-auto">EDIT</a>
+            <a href="edit_hot.php?pic_id=6" class="btn btn-primary btn btn-primary text-center mx-auto">EDIT</a>
           </div> 
         </div>
       </aside>  
